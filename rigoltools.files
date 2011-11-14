@@ -1,9 +1,9 @@
-rupload.cpp
 serial_com.h
 serial_com.cpp
 rigol_com.h
 rigol_com.cpp
 code_binary.h
 code_binary.cpp
-rexecute.cpp
-rinject.cpp
+rglupload.cpp
+rglinject.cpp
+rglexecute.cpp

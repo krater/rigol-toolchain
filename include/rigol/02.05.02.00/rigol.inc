@@ -72,7 +72,10 @@
 
 .equ write_EEPROM,		0x0004E07E       
 .equ set_UART_Baud,		0x000C9632       
-.equ exec_UART_WRITE,		0x000C995E
+.equ exec_UART_WRITE,		0x000C995E 	#R0=pBuf;R1=len
+.equ get_CmdParam,		0x000B572A
+.equ get1_CmdParam,		0x000B5598
+.equ exec_scmd_0x19c,		0x000EA364
 .equ vprintf_XY_LCD,		0x000DA54E       
 .equ set1_Model_params,		0x0001D3A8       
 .equ exec_write_ModelSerialN,	0x0001D5AC       
@@ -80,3 +83,8 @@
 .equ set_speed_Freq,		0x0001CEA0       
 .equ Set_KeyLock,		0x0004CF6C
 .equ set_PaintColor,            0x000D4A68
+
+
+# buffers
+.equ rx_buf_RemoteCmd,		0x006EFBF0
+.equ tx_buf_RemoteCmd,		0x006EFC30

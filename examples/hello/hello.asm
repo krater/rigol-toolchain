@@ -25,7 +25,7 @@ lp:
   IF CC JUMP lp
 
 
-  JUMP.L JumpBack
+  RTS
 
 hello:
 .asciz "Hello World ! :)"
