@@ -16,13 +16,15 @@ CDFLAGS := $(CPPFLAGS) -g -O2 -fstack-protector-all -Wstack-protector -Wstrict-o
 CNFLAGS := $(CPPFLAGS) -O3 -fno-stack-protector
 
 all: default 
-default: clean rglupload rglexecute rglinject
+default: clean rglupload rglexecute rglinject rglpatchversion
 rglupload:
 	@$(CC) $(CDFLAGS) $(INCLUDEFLAGS) rglupload.cpp serial_com.cpp rigol_com.cpp code_binary.cpp -o bin/rglupload
 rglexecute:
 	@$(CC) $(CDFLAGS) $(INCLUDEFLAGS) rglexecute.cpp serial_com.cpp rigol_com.cpp -o bin/rglexecute
 rglinject:
 	@$(CC) $(CDFLAGS) $(INCLUDEFLAGS) rglinject.cpp -o bin/rglinject
+rglpatchversion:
+	 @$(CC) $(CDFLAGS) $(INCLUDEFLAGS) rglpatchversion.cpp -o bin/rglpatchversion
 
 install: default
 	cp bin/* /usr/bin/

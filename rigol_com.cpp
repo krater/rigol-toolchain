@@ -13,11 +13,13 @@ int rigol_com::open_rigol(const char *device)
 {
     if(open)    close_rigol();
 
+
     if(serial.open_port(device)<0)
     {
         printf("Can't open port %s\n",device);
         return -1;
     }
+
 
     //TODO:check if there is really a rigol scope
 

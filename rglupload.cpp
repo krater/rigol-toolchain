@@ -22,7 +22,13 @@ int main(int argc, char *argv[])
     if(rigol.open_rigol(argv[1])<0)
         return -1;
 
+    printf("upl1\n");fflush(stdout);
+    rigol.custom_command("",0);
+
+    printf("upl2\n");fflush(stdout);
     printf("Scope identification:\n%s\n",rigol.identify());
+
+    printf("upl3\n");fflush(stdout);
 
     uint32_t start=(uint32_t)strtol(argv[3],0,16);
     uint32_t length=(uint32_t)strtol(argv[4],0,16);

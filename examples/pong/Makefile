@@ -12,13 +12,16 @@ LD = bfin-uclinux-ld
 	$(AS) $(ASMFLAGS) -o $@ $<
 
 default: all
-all:	clean hello
+all:	clean pong
 
-hello:	$(OBJS)
+pong:	$(OBJS)
 	$(LD) -o dummy $(OBJS)
 
-upload: hello
-	rigol-upload
+upload:	pong
+	rglupload /dev/ttyS0 dummy 0xef000 0x600
+
+start:	
+	rglexecute /dev/ttyS0 0x0EF000
 
 clean:
 	rm -f *.o dummy  

@@ -83,7 +83,7 @@
 .equ set_speed_Freq,		0x0001CEA0       
 .equ Set_KeyLock,		0x0004CF6C
 .equ set_PaintColor,            0x000D4A68
-
+.equ exec_Loading_MDMA,		0xFFA0EE8C
 
 # buffers
 .equ rx_buf_RemoteCmd,		0x006EFBF0

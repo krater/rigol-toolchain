@@ -20,16 +20,16 @@
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">all</value>
    <valuelist key="abstractProcess.Environment" type="QVariantList">
-    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-BLs7NIKATT,guid=af0708f9843f0be93c9a875200000066</value>
+    <value type="QString">DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-TtCBAfTgpd,guid=04a259e7ae541599023279fb000000df</value>
     <value type="QString">DESKTOP_SESSION=default</value>
     <value type="QString">DISPLAY=:0.0</value>
     <value type="QString">GDMSESSION=default</value>
     <value type="QString">GDM_KEYBOARD_LAYOUT=de	nodeadkeys</value>
     <value type="QString">GDM_LANG=en_US.utf8</value>
     <value type="QString">GNOME_DESKTOP_SESSION_ID=this-is-deprecated</value>
-    <value type="QString">GNOME_KEYRING_CONTROL=/tmp/keyring-CB7XCd</value>
-    <value type="QString">GNOME_KEYRING_PID=1735</value>
-    <value type="QString">GPG_AGENT_INFO=/tmp/seahorse-c4hT4c/S.gpg-agent:1804:1</value>
+    <value type="QString">GNOME_KEYRING_CONTROL=/tmp/keyring-LaMyed</value>
+    <value type="QString">GNOME_KEYRING_PID=1828</value>
+    <value type="QString">GPG_AGENT_INFO=/tmp/seahorse-1O03L4/S.gpg-agent:1897:1</value>
     <value type="QString">GTK_MODULES=canberra-gtk-module</value>
     <value type="QString">GTK_RC_FILES=/etc/gtk/gtkrc:/home/krater/.gtkrc-1.2-gnome2</value>
     <value type="QString">HOME=/home/krater</value>
@@ -39,16 +39,16 @@
     <value type="QString">ORBIT_SOCKETDIR=/tmp/orbit-krater</value>
     <value type="QString">PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games</value>
     <value type="QString">PWD=/home/krater</value>
-    <value type="QString">SESSION_MANAGER=local/rigol-dev:@/tmp/.ICE-unix/1754,unix/rigol-dev:/tmp/.ICE-unix/1754</value>
+    <value type="QString">SESSION_MANAGER=local/rigol-dev:@/tmp/.ICE-unix/1847,unix/rigol-dev:/tmp/.ICE-unix/1847</value>
     <value type="QString">SHELL=/bin/bash</value>
-    <value type="QString">SSH_AGENT_PID=1790</value>
-    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-CB7XCd/ssh</value>
+    <value type="QString">SSH_AGENT_PID=1883</value>
+    <value type="QString">SSH_AUTH_SOCK=/tmp/keyring-LaMyed/ssh</value>
     <value type="QString">USER=krater</value>
     <value type="QString">USERNAME=krater</value>
     <value type="QString">WINDOWPATH=7</value>
-    <value type="QString">XAUTHORITY=/var/run/gdm3/auth-for-krater-qCgnBH/database</value>
+    <value type="QString">XAUTHORITY=/var/run/gdm3/auth-for-krater-eSAmWO/database</value>
     <value type="QString">XDG_DATA_DIRS=/usr/share/gnome:/usr/share/gdm/:/usr/local/share/:/usr/share/</value>
-    <value type="QString">XDG_SESSION_COOKIE=26e5e917782ecd80b990c21b00000008-1318903152.289438-697382340</value>
+    <value type="QString">XDG_SESSION_COOKIE=26e5e917782ecd80b990c21b00000008-1321310975.379407-76702172</value>
    </valuelist>
    <valuelist key="abstractProcess.arguments" type="QVariantList">
     <value type="QString">all</value>

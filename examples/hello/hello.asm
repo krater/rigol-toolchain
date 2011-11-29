@@ -4,32 +4,21 @@
 
 .include "upload_startup.inc"
 
-
-  R0.L = hello
-  R0.H = hello
-  CALL strlen
-
-#R1 = R0
-#R0.L = hello
-#R0.H = hello
-#CALL exec_UART_WRITE
-
+#output messagebox
   R1=7
   R0.L = hello
   R0.H = hello
   CALL MessageBox
 
-lp:
+lp1:
   CALL GetKeyFromQueue
-  CC=R0==KC_NOKEY
-  IF CC JUMP lp
+  CC=R0==0              #KC_NOKEY
+  IF CC JUMP lp1
 
-
-  RTS
+  JUMP.L JumpBack
 
 hello:
-.asciz "Hello World ! :)"
-
+.asciz "  Hello World ! :)"
 
 .include "endline.inc"
 

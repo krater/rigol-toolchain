@@ -44,14 +44,14 @@
 # KC_LP_xxx  keycode for long-press (more than 3 seconds)
 
 
-.equ KC_RL_KNOB,                         0x3d
+.equ KC_LR_KNOB,                         0x3d
 .equ KC_RR_KNOB,                         0x3e
 .equ KC_R_KNOB,                          0x43
 
-.equ KC_RL_TRIGGER_SCALE,                0x0b
+.equ KC_LR_TRIGGER_SCALE,                0x0b
 .equ KC_RR_TRIGGER_SCALE,                0x0c
 .equ KC_R_TRIGGER_SCALE,                 0x11
-.equ KC_RL_TRIGGER_LEVEL,                0x1f
+.equ KC_LR_TRIGGER_LEVEL,                0x1f
 .equ KC_RR_TRIGGER_LEVEL,                0x20
 .equ KC_R_TRIGGER_LEVEL,                 0x25
 .equ KC_R_TRIGGER_FORCE,                 0x1a
@@ -62,11 +62,11 @@
 .equ KC_LR_VERTICAL_SCALE,               0x15
 .equ KC_RR_VERTICAL_SCALE,               0x16
 .equ KC_R_VERTICAL_SCALE,                0x1b
-.equ KC_RL_VERTICAL_POSITION,            0x33
+.equ KC_LR_VERTICAL_POSITION,            0x33
 .equ KC_RR_VERTICAL_POSITION,            0x34
 .equ KC_R_VERTICAL_POSITION,             0x39
 
-.equ KC_RL_HORIZONTAL_POSITION,          0x29
+.equ KC_LR_HORIZONTAL_POSITION,          0x29
 .equ KC_RR_HORIZONTAL_POSITION,          0x2a
 .equ KC_R_HORIZONTAL_POSITION,           0x2f
 

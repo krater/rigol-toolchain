@@ -18,7 +18,10 @@ hello:	$(OBJS)
 	$(LD) -o dummy $(OBJS)
 
 upload: hello
-	rigol-upload
+	rglupload /dev/ttyUSB0 dummy 0xef000 0x300
+
+start:
+	rglexecute /dev/ttyUSB0 0x0EF000
 
 clean:
 	rm -f *.o dummy  

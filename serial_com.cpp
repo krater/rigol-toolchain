@@ -16,9 +16,19 @@ int serial_com::open_port(const char *device)
 
     struct termios oldtio,newtio;
 
-    fd = open(device,O_RDWR|O_NOCTTY);
+    printf("open1\n");fflush(stdout);
+    fd = open(device,O_RDWR|O_NOCTTY|O_NDELAY);
     if(fd<0)
         return -1;
+
+    close(fd);
+
+    printf("open2\n");fflush(stdout);
+    fd = open(device,O_RDWR|O_NOCTTY/*|O_NDELAY*/);
+    if(fd<0)
+        return -1;
+
+    printf("open3\n");fflush(stdout);
 
     tcgetattr(fd,&oldtio);
     bzero(&newtio,sizeof(newtio));
@@ -50,6 +60,7 @@ int serial_com::open_port(const char *device)
     tcflush(fd, TCIFLUSH);
     tcsetattr(fd,TCSANOW,&newtio);
 
+    printf("open4\n");fflush(stdout);
     return 0;
 }
 

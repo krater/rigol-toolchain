@@ -7,3 +7,4 @@ code_binary.cpp
 rglupload.cpp
 rglinject.cpp
 rglexecute.cpp
+rglpatchversion.cpp
