@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
     if(argc<3)
     {
         printf("Usage:    rupload port srcfile startaddress maxlength\n"\
-               "Example:  rupload /dev/tty0 homebrew 0xa00000 0x1000\n\n");
+               "Example:  rupload /dev/ttyS0 homebrew 0xa00000 0x1000\n\n");
 
         return -1;
     }
@@ -42,13 +42,10 @@ int main(int argc, char *argv[])
     if(rigol.open_rigol(argv[1])<0)
         return -1;
 
-    printf("upl1\n");fflush(stdout);
     rigol.custom_command("",0);
 
-    printf("upl2\n");fflush(stdout);
     printf("Scope identification:\n%s\n",rigol.identify());
 
-    printf("upl3\n");fflush(stdout);
 
     uint32_t start=(uint32_t)strtol(argv[3],0,16);
     uint32_t length=(uint32_t)strtol(argv[4],0,16);

@@ -4,10 +4,11 @@ What
    Development Toolchain for Rigol Oscilloscopes
 
    This toolchain makes it possible to compile and link your own software against
-   the Rigol firmware, then you can upload and run it on a device with a patched 
-   firmware. In a future release, i plan to supply c header files with wrappers 
-   around the firmware calls. Up to that point, you must use blackfin assembly 
-   to write your own code.
+   the Rigol firmware. You can upload and run it on your device or implant it to a 
+   firmware image. Actually, only blackfin assembly is supported, but i plan to supply 
+   c-header files with wrappers around the firmware calls.
+
+   More infos at http://rigolwiki.codenaschen.de
 
 
 Author
@@ -42,6 +43,58 @@ Supported Hardware
    - Other Hardware is untested, but when original firmware version 02.05.02.00 
      is working, the patched one will working too.
 
+
+Compile/Install
+~~~~~~~~~~~~~~~
+   
+    Before you can install the toolchain, you must install the following software packets
+
+    - Build Essentials (make,...)
+    - GNU C++ Compiler
+    - Blackfin Cross Compiler Toolchain (bfin-uclinux-xxx)
+    - md5sum tool
+    
+    Also you need a firmware image (DS1000EUpdate.RGL) version 02.05.02.00 
+    with a md5sum of 9c28690d8d5a5690b7340fda943f5549.
+
+    1)Install the toolchain
+      
+      First, like in the most packeckage do a 
+    
+      make
+    
+      then a
+    
+      sudo make install
+
+    
+    2)Patching the firmware
+
+      Copy your firmware image to examples/rwpatch/DS1000EUpdate.RGL,
+      switch to this directory and do a
+   
+      make patch
+
+      When you get the Message "Firmware ready to flash.", you can copy the resulting firmware 
+      image to a USB stick and flash it to you oscilloscope.
+      
+      !!! Make sure your oscillsocope will work with version 02.05.02.00 of the firmware !!!
+      !!!                          BEFORE you flash the image                            !!!
+
+
+    3)Building and uploading the Samples
+      
+      First you should connect your PC and the Oscilloscope through a RS-232 cable. Then
+      switch to the appropriate directory and write your used tty device name to the Makefile.
+
+      Type:
+
+      make         # for build your application
+      make upload  # for uploading it to the ram of your Rigol device
+      make start   # to start it
+ 
+
+    4)Have fun !
 
 Bugs/Todo
 ~~~~~~~~~
