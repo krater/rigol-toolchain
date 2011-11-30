@@ -12,7 +12,7 @@
   <variable>buildConfiguration-all</variable>
   <valuemap type="QVariantMap">
    <value key="ProjectExplorer.BuildConfiguration.DisplayName" type="QString">all</value>
-   <value key="buildDirectory" type="QString">/home/krater/rigoltools</value>
+   <value key="buildDirectory" type="QString">/home/krater/rigol-tools</value>
   </valuemap>
  </data>
  <data>
@@ -55,7 +55,7 @@
    </valuelist>
    <value key="abstractProcess.command" type="QString">make</value>
    <value key="abstractProcess.enabled" type="bool">true</value>
-   <value key="abstractProcess.workingDirectory" type="QString">/home/krater/rigoltools</value>
+   <value key="abstractProcess.workingDirectory" type="QString">/home/krater/rigol-tools</value>
    <valuelist key="buildTargets" type="QVariantList">
     <value type="QString">all</value>
    </valuelist>

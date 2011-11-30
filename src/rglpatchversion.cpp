@@ -1,3 +1,23 @@
+/*
+   Development Toolchain for Rigol Oscilloscopes
+
+   Copyright (C) 2011
+   Andreas Schuler <andreas at schulerdev.de>
+
+   This program is free software; you can redistribute it and/or modify it
+   under the terms of the GNU General Public License v2 as published by the Free
+   Software Foundation.
+
+   This program is distributed in the hope that it will be useful, but WITHOUT
+   ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+   FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
+   more details.
+
+   You should have received a copy of the GNU General Public License along with
+   this program; if not, write to the Free Software Foundation, Inc., 59 Temple
+   Place, Suite 330, Boston, MA 02111-1307 USA
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -15,7 +35,7 @@ int main(int argc,const char* argv[])
 {
     unsigned char header[22];
 
-    printf("RGL Firmware Version Patcher\n\nCopyright 2011 by Andreas Schuler\nLicensed under GPL v2\n\n");
+    printf("RGL Firmware Version Patcher v1.0\n\nCopyright 2011 by Andreas Schuler\nLicensed under GPL v2\n\n");
 
     if(argc<2)
     {
@@ -32,7 +52,7 @@ int main(int argc,const char* argv[])
 
     long version=strtol(argv[2],null,10);
 
-    if(version>=(sizeof(versions)/4))
+    if(version>=((long)(sizeof(versions)/4)))
     {
         printf("Unknown version...\n");
         return -1;
@@ -60,12 +80,23 @@ int main(int argc,const char* argv[])
 
     printf("\n");
 
+    printf("patching file...");
+    fseek(f,0,SEEK_SET);
+    if(fwrite(header,1,21,f)!=21)
+    {
+	    printf("write error\n");
+	    fclose(f);
+	    return -1;
+    }
+
+    printf("ok\n");
+    return 0;
 }
 
 
 uint32_t crc32(unsigned char *data,size_t len)
 {
-    unsigned long crc32=0xffffffff;
+    uint32_t crc32=0xffffffff;
 
     size_t i,a;
     for(a=0;a<len;a++)

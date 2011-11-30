@@ -1,6 +1,6 @@
 .equ StartFreeCode,  0x0B7D7A # FFT-Command
 .equ StartFreeData,  0xA00000
-.equ JumpBack,       0x0B7D7A
+.equ JumpBack,       0x0B7EB8
 
 .section text
 .global __start

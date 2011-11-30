@@ -123,13 +123,11 @@ out:
 end: JUMP.L JumpBack
 
 format:
-.ascii "%.8x:"
-.byte 0
+.asciz "%.8x:"
 format2:
-.ascii "%.2x"
-.byte 0
+.asciz "%.2x"
+.byte 0        # word alignment, don't use align !!!
 
-.align 2
 #----------------------------------
 
 #----------------------------------
@@ -215,5 +213,7 @@ num:  R2+=-0x30
   IF !CC JUMP start
   RTS
 
+  NOP
+  NOP
 #-------------------------------------
 .include "endline.inc"

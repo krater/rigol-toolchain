@@ -1,0 +1,10 @@
+src/serial_com.h
+src/serial_com.cpp
+src/rigol_com.h
+src/rigol_com.cpp
+src/code_binary.h
+src/code_binary.cpp
+src/rglupload.cpp
+src/rglinject.cpp
+src/rglexecute.cpp
+src/rglpatchversion.cpp

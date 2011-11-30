@@ -10,7 +10,7 @@ JUMP RealStart
 # so we put the text at start of the code
 
 fmtstring:
-.asciz "%u"
+.asciz "%i"
 
 start:
 .asciz "Press CH1 or CH2"
@@ -37,15 +37,22 @@ Variables:
 
   .word 0x0000           # 20  loopcount
 
-  .word 4                # 22  ball dx
-  .word 4                # 24  ball dy
+  .word 1#4                # 22  ball dx
+  .word 1#4                # 24  ball dy
 
   .word 0                # 26  points pl1
   .word 0                # 28  points pl2
 
-  .word 0xbeef           # 30  random seed
+  .word 0xb963           # 30  random seed
 
   .word 0
+
+
+random:
+  .long 123456789
+  .long 362436069
+  .long 521288629
+  .long 88675123
 
 #Attention, Code must be align 2 (or 4?)
 
@@ -210,98 +217,154 @@ MoveBall:
   P0.L=Variables
   P0.H=Variables
 
-  R1=W[P0+8]	# Ball x
-  R2=W[P0+10]	# Ball y
-  R3=W[P0+22](x)# Ball dx
-  R1=R1+R3
-  R3=W[P0+24](x)# Ball dy
-  R2=R2+R3
 
-  ### check x move
+  ### operate ball x movin'
 
-  R0=(320-10-4)
-  CC=R0<=R1
-  IF CC JUMP pl1point
+ballx:
+  R2=W[P0+8](x)           # Ball x
+  R3=W[P0+22](x)          # Ball dx
+  R3=R2+R3	          # now R3 is the new x value
+
+
+#  W[P0+30]=R3 #debug
   
-  R0=0+4
-  CC=R0<R1
+  ### check ball movin' direction
+  R0=0
+  R1=W[P0+22](x)          # Ball dx
+  CC=R0<R1                # Ball movin' right ?
+  IF CC JUMP movright
+
+movleft:
+  R0=0
+  CC=R0<R3                # Ball at left end ?
   IF !CC JUMP pl2point
 
-  ## check for player hit
+  R0=40(x)
+  CC=R3<R0               # Ball is right of player1
+  IF !CC JUMP bally      # ignore...
+
+  R0=30(x)
+  CC=R0<R3               # Ball is left of player1
+  IF CC JUMP pl1chkhit   # check if player 1 hit the ball 
+
+  JUMP bally
+
+
+movright:
+  R0=(320-10)
+  CC=R0<=R3               # Ball at right end ?
+  IF CC JUMP pl1point
+
+  R0=(320-40-10)(x)
+  CC=R3<R0              # Ball is left of player2
+  IF CC JUMP bally      # ignore...
+
+  R0=(320-30-10)(x)
+  CC=R0<R3               # Ball is right of player1
+  IF !CC JUMP pl2chkhit  # check if player 1 hit the ball
+
+
+  ### operate ball y movin'
+
+bally:
+  R2=W[P0+10](x)          # Ball y
+  R3=W[P0+24](x)          # Ball dy
+  R3=R2+R3                # now R3 is the new y value
+
+  R0=(234-10)
+  CC=R0<=R3
+  IF CC JUMP goup
   R0=0
   CC=R0<R3
-  IF CC JUMP chkpl2hit
-
-chkpl1hit:
-  R0.L=40 
-  CC=R0<R1           # R1 is right of player1
-  IF CC JUMP chky
-  
-  R0.L=30
-  CC=R0<R1           # R1 is left of player1
-  IF CC JUMP chky   
-
-  JUMP pl1hit
-
-
-
-chkpl2hit:
-
-chky:
-  ### check y move
-
-  R0=(234-10-4)
-  CC=R0<=R2
-  IF CC JUMP goup
-
-  R0=0+4
-  CC=R0<R2
   IF !CC JUMP godown
 
 
-move:
-  W[P0+8]=R1
-  W[P0+10]=R2
+ballmove:
+  # move x
+  R0=W[P0+8](x)           # Ball x
+  R1=W[P0+22](x)          # Ball dx
+  R0=R0+R1
+  W[P0+8]=R0              # Ball x
 
-nomove:
+  # move y
+  R0=W[P0+10](x)          # Ball y
+  R1=W[P0+24](x)          # Ball dy
+  R0=R0+R1
+  W[P0+10]=R0             # Ball y
+
+
+noballmove:
   UNLINK
   RTS
 
-goup:
-  R0=-4
-  W[P0+24]=R0
-  JUMP move
 
-godown:
-  R0=-4
-  W[P0+24]=R0
-  JUMP move
+pl1chkhit:
+  R0=W[P0+10](x)          # Ball y
+  #R1=W[P0+24](x)          # Ball dy
+  #R0=R0+R1
+
+  R2=W[P0+2](x)           # Player 1 y
+ 
+  R0+=10                  # compensate 10 pixel of ball thicknes 
+  CC=R0<R2
+  IF CC JUMP bally        # Ball is over Player
+  R0+=-10
+
+  R2+=50
+  CC=R2<R0
+  IF CC JUMP bally        # Ball is under Player
 
 pl1hit:
-  R0=4
-  #W[P0+22]=R0
-  JUMP chky 
+  CALL GetLousyRndNum
+  W[P0+22]=R0
+  JUMP bally
+
+
+pl2chkhit:
+  R0=W[P0+10](x)          # Ball y
+  #R1=W[P0+24](x)          # Ball dy
+  #R0=R0+R1
+
+  R2=W[P0+6](x)           # Player 1 y
+
+  R0+=10                  # compensate 10 pixel of ball thicknes
+  CC=R0<R2
+  IF CC JUMP bally        # Ball is over Player
+  R0+=-10
+
+  R2+=50
+  CC=R2<R0
+  IF CC JUMP bally        # Ball is under Player
 
 pl2hit:
-  #R0=-4
-  #W[P0+24]=R0
-  JUMP chky
+  R0=-3       #-4
+  W[P0+22]=R0
+  JUMP bally
 
+
+goup:
+  R0=-3        #-4
+  W[P0+24]=R0
+  JUMP ballmove
+
+godown:
+  R0=3          #4
+  W[P0+24]=R0
+  JUMP ballmove
 
 pl1point:
   R0=W[P0+26]
   R0+=1
   W[P0+26]=R0
   CALL StartPL2
-  JUMP nomove
+  JUMP noballmove
 
 pl2point:
   R0=W[P0+28]
   R0+=1
   W[P0+28]=R0
   CALL StartPL1
-  JUMP nomove
-
+  JUMP noballmove
 
 ############################################################
 #  InitAll
@@ -317,6 +380,7 @@ InitAll:
   W[P0+26]=R0
   W[P0+28]=R0
 
+  CALL StartPL1
   CALL PaintPlayfield
 
   R0.L=0xffff
@@ -360,12 +424,14 @@ pl2start:
 #  Startpoints
 #
 
+
 StartPL1:
+  LINK 0x0
 
   P0.L=Variables
   P0.H=Variables
 
-  R0=4
+  R0=3#4
   W[P0+22]=R0     # ball dx
   W[P0+24]=R0     # ball dy
 
@@ -374,16 +440,19 @@ StartPL1:
   R0=70
   W[P0+10]=R0     # ball y
 
+  UNLINK
   RTS
 
+
 StartPL2:
+  LINK 0x0
 
   P0.L=Variables
   P0.H=Variables
 
-  R0=-4
+  R0=-3#-4
   W[P0+22]=R0     # ball dx
-  R0=4
+  R0=3#4
   W[P0+24]=R0     # ball dy
 
   R0=320-40-10
@@ -391,6 +460,7 @@ StartPL2:
   R0=234-70-10
   W[P0+10]=R0     # ball y
 
+  UNLINK
   RTS
 
 
@@ -467,7 +537,11 @@ PaintPlayfield:
 
   P0.L=Variables
   P0.H=Variables
-  R1=W[P0+26]
+
+  #R1=W[P0+26](x)  #pl1 points
+  #R1=W[P0+8](x)   #ball x
+  R1=W[P0+22](x)   #ball dx
+
   R0.L=fmtstring
   R0.H=fmtstring
   CALL vprintf
@@ -479,10 +553,33 @@ PaintPlayfield:
 
   P0.L=Variables
   P0.H=Variables
-  R1=W[P0+28]
+
+  #R1=W[P0+28](x)  #pl2 points
+  #R1=W[P0+10](x)  #ball y
+  R1=W[P0+24](x)   #ball dy
+
   R0.L=fmtstring
   R0.H=fmtstring
   CALL vprintf
+
+
+  # output debug
+  R0=175
+  R1=20
+  CALL set_TextPaintPos
+
+  P0.L=Variables
+  P0.H=Variables
+
+  R1=W[P0+30](x)  #pl2 points
+  #R1=W[P0+10](x)  #ball y
+  #R1=W[P0+24](x)   #ball dy
+
+  R0.L=fmtstring
+  R0.H=fmtstring
+  CALL vprintf
+
+
 
 
   UNLINK
@@ -501,14 +598,65 @@ dummy:
 
 
 GetLousyRndNum:
+  LINK 0x0
+  
+  CALL GetRandomNum
+
+  R1=7
+  R0=R0&R1
+
   P0.L=Variables
   P0.H=Variables
-
-  R0=W[P0+30]
-  R0.L=R0.L*R0.L
   W[P0+30]=R0
-  R1=8
-  R0=R0&R1
+
+  R1=0
+  CC=R0==R1
+  IF CC JUMP xxx
+  UNLINK
   RTS
+
+xxx:
+  R0=4
+  UNLINK
+  RTS
+
+
+GetRandomNum:
+  [--SP]=P0
+
+  P0.L=random
+  P0.H=random
+
+  #t=x^(x<<11)
+  R0=[P0]
+  R1=R0<<11
+  R1=R0^R1          #R1=t
+
+  #x=y
+  R0=[P0+4]
+  [P0]=R0           
+
+  #y=z
+  R0=[P0+8]
+  [P0+4]=R0
+
+  #z=w
+  R0=[P0+12]
+  [P0+8]=R0         #R0=w
+
+  #w^=(w>>19)
+  R2=R0>>19
+  R2=R2^R0
+  R2=R2^R1
+  R1>>=8
+  R2=R2^R1
+  [P0+12]=R2
+
+  R0=R2
+  R0+=1
+
+  P0=[SP++]
+  RTS
+
   
 .include "endline.inc"

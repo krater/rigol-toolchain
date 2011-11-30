@@ -1,3 +1,0 @@
-#!/bin/bash
-bfin-linux-uclibc-as keycheck.asm -I/opt/rigol/include/rigol/02.05.02.00/ --warn
-rglupload /dev/ttyUSB0 a.out 0xef000 0x300

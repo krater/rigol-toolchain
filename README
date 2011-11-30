@@ -1,0 +1,62 @@
+What
+~~~~
+
+   Development Toolchain for Rigol Oscilloscopes
+
+   This toolchain makes it possible to compile and link your own software against
+   the Rigol firmware, then you can upload and run it on a device with a patched 
+   firmware. In a future release, i plan to supply c header files with wrappers 
+   around the firmware calls. Up to that point, you must use blackfin assembly 
+   to write your own code.
+
+
+Author
+~~~~~~
+
+   Andreas Schuler <andreas at schulerdev.de>
+
+   If you want to know more about me, just read my blog at
+   http://www.codenaschen.de/
+
+
+License
+~~~~~~~
+
+   GNU GENERAL PUBLIC LICENSE Version 2
+   see LICENSE file
+
+
+Supported Firmware
+~~~~~~~~~~~~~~~~~~
+
+   Actually we only patch firmware version 02.05.02.00. You need a suitable
+   firmware update file for this version.
+
+
+Supported Hardware
+~~~~~~~~~~~~~~~~~~
+
+   - Rigol DS1052E/DS1052D, HW v58 and lower
+   - Rigol DS1102E/DS1102D, HW v58 and lower
+
+   - Other Hardware is untested, but when original firmware version 02.05.02.00 
+     is working, the patched one will working too.
+
+
+Bugs/Todo
+~~~~~~~~~
+
+   Development:
+     - Add wrappers around the internal Rigol functions to use it with
+       GNU C compiler
+     - Write firmware patcher and header files for oher firmware versions
+     - Write a nicer Makefile
+     - ...
+   
+   Reverse engineering:
+     - Find a way to access the measured values 
+     - Access the speaker and button led's
+     - ...
+
+    Help is welcome :)
+
