@@ -538,9 +538,9 @@ PaintPlayfield:
   P0.L=Variables
   P0.H=Variables
 
-  #R1=W[P0+26](x)  #pl1 points
+  R1=W[P0+26](x)  #pl1 points
   #R1=W[P0+8](x)   #ball x
-  R1=W[P0+22](x)   #ball dx
+  #R1=W[P0+22](x)   #ball dx
 
   R0.L=fmtstring
   R0.H=fmtstring
@@ -554,9 +554,9 @@ PaintPlayfield:
   P0.L=Variables
   P0.H=Variables
 
-  #R1=W[P0+28](x)  #pl2 points
+  R1=W[P0+28](x)  #pl2 points
   #R1=W[P0+10](x)  #ball y
-  R1=W[P0+24](x)   #ball dy
+  #R1=W[P0+24](x)   #ball dy
 
   R0.L=fmtstring
   R0.H=fmtstring
@@ -564,20 +564,20 @@ PaintPlayfield:
 
 
   # output debug
-  R0=175
-  R1=20
-  CALL set_TextPaintPos
+  #R0=175
+  #R1=20
+  #CALL set_TextPaintPos
 
-  P0.L=Variables
-  P0.H=Variables
+  #P0.L=Variables
+  #P0.H=Variables
 
-  R1=W[P0+30](x)  #pl2 points
+  #R1=W[P0+30](x)  #pl2 points
   #R1=W[P0+10](x)  #ball y
   #R1=W[P0+24](x)   #ball dy
 
-  R0.L=fmtstring
-  R0.H=fmtstring
-  CALL vprintf
+  #R0.L=fmtstring
+  #R0.H=fmtstring
+  #CALL vprintf
 
 
 
