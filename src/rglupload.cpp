@@ -31,10 +31,10 @@ int main(int argc, char *argv[])
 
     printf("Rigol Code Uploader v1.0\n\nCopyright 2011 by Andreas Schuler\nLicensed under GPL v2\n\n");
 
-    if(argc<3)
+    if(argc<5)
     {
-        printf("Usage:    rupload port srcfile startaddress maxlength\n"\
-               "Example:  rupload /dev/ttyS0 homebrew 0xa00000 0x1000\n\n");
+        printf("Usage:    rglupload port srcfile startaddress maxlength\n"\
+               "Example:  rglupload /dev/ttyS0 homebrew 0xa00000 0x1000\n\n");
 
         return -1;
     }

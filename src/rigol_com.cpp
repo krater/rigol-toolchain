@@ -96,10 +96,21 @@ int rigol_com::write_data(uint32_t address,uint8_t *buffer,size_t length)
 }
 
 
-int rigol_com::read_data(uint32_t address,uint8_t *buffer,size_t length)
+int rigol_com::read_data(uint32_t address,uint8_t *buffer,uint8_t length)
 {
-    //dummy
-    address=0;buffer=0;length=0;
+    if(!open) return -1;
+    snprintf(line,LINELEN,":FFT:%.8xr%.2x",address,length);
+    printf("%s\n",line);
+    serial.send_line(line);
+
+    serial.receive_line(line,LINELEN);
+
+    for(uint8_t i=0;i<length;i++)
+    {
+        serial.receive_line(line,LINELEN);
+        buffer[i]=(uint8_t)strtol(line,0,16);
+    }
+
     return 0;
 }
 

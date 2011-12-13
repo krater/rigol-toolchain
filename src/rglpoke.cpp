@@ -18,45 +18,39 @@
    Place, Suite 330, Boston, MA 02111-1307 USA
 */
 
-#ifndef RIGOL_COM_H
-#define RIGOL_COM_H
-
-#include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include "serial_com.h"
 
-#define LINELEN 1024
+#include "rigol_com.h"
 
-class rigol_com
+
+int main(int argc, char *argv[])
 {
-public:
-    rigol_com();
-    ~rigol_com();
+    rigol_com rigol;
 
-    int open_rigol(const char *device);
-    void close_rigol();
+    printf("Rigol Poke v1.0\n\nCopyright 2011 by Andreas Schuler\nLicensed under GPL v2\n\n");
 
-    // normal access
-    char* identify();
-    void keylock_disable();
+    if(argc<4)
+    {
+        printf("Usage:    rglpoke port address byte\n"\
+               "Example:  rglpoke /dev/ttyS0 0xa00000 0x42\n\n");
 
-    char* custom_command(const char *cmd,bool get_response);
+        return -1;
+    }
 
-    // memory access
-    int write_data(uint32_t address,uint8_t *buffer,size_t length);    
-    int read_data(uint32_t address,uint8_t *buffer,uint8_t length);
+    if(rigol.open_rigol(argv[1])<0)
+        return -1;
+
+    rigol.custom_command("",0);
+
+    printf("Scope identification:\n%s\n",rigol.identify());
 
 
+    uint32_t addr=(uint32_t)strtol(argv[2],0,16);
+    uint8_t byte=(uint8_t)strtol(argv[3],0,16);
 
+    rigol.write_data(addr,&byte,1);
+    rigol.keylock_disable();
+    rigol.close_rigol();
 
-    void bla();
-private:
-    int write_byte(uint32_t address,uint8_t value);
-
-    serial_com serial;
-    char line[LINELEN];
-    bool open;
-
-};
-
-#endif // RIGOL_COM_H
+}

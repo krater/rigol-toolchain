@@ -28,12 +28,12 @@ int main(int argc, char *argv[])
 {
     rigol_com rigol;
 
-    printf("Rigol Code Executer v1.0\n\nCopyright 2011 by Andreas Schuler\nLicensed under GPL v2\n\n");
+    printf("Rigol Peek v1.0\n\nCopyright 2011 by Andreas Schuler\nLicensed under GPL v2\n\n");
 
-    if(argc<3)
+    if(argc<4)
     {
-        printf("Usage:    rglexecute port address to call\n"\
-               "Example:  rglexecute /dev/tty0 0xa00000\n\n");
+        printf("Usage:    rglpoke port address bytecount\n"\
+               "Example:  rglpoke /dev/ttyS0 0xa00000 0x42\n\n");
 
         return -1;
     }
@@ -41,15 +41,29 @@ int main(int argc, char *argv[])
     if(rigol.open_rigol(argv[1])<0)
         return -1;
 
+    rigol.custom_command("",0);
+
     printf("Scope identification:\n%s\n",rigol.identify());
 
-    char line[30];
-    snprintf(line,30,":FFT:%.8xc00",(uint32_t)strtol(argv[2],0,16));
 
-    printf("%s\n",line);
-    rigol.custom_command(line,0);
+    uint32_t addr=(uint32_t)strtol(argv[2],0,16);
+    uint8_t length=(uint8_t)strtol(argv[3],0,16);
+
+    uint8_t *buffer=(uint8_t*)malloc(length);
+
+    rigol.read_data(addr,buffer,length);
+
+    for(int y=0;y<length;y++)
+    {
+        printf("%.2x ",buffer[y]);
+
+        if((y%16)==15)
+            printf("\n");
+    }
+
+    printf("\n");
+    rigol.keylock_disable();
     rigol.close_rigol();
-
 
 }
 

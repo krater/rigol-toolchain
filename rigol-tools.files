@@ -8,3 +8,5 @@ src/rglupload.cpp
 src/rglinject.cpp
 src/rglexecute.cpp
 src/rglpatchversion.cpp
+src/rglpoke.cpp
+src/rglpeek.cpp

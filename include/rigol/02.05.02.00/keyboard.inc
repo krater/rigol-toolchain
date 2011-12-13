@@ -118,7 +118,20 @@
 #0xa3 longpress button1
 #0xa7 longpress knob
 #0xad longpress menu on/off
-
+#0xae longpress measure
+#0xa4 longpress cursor
+#0xaf acquire
+#0xa5 display
+#0x9b storage
+#0x91 utility
+#0x93 horizontal position
+#0x75 horizontal scale
+#0x89 level 
+#0x92 trigger menu
+#0x88 trigger 50%
+#0x7e trigger force
+#0xa6 auto
+#0x9c run/stop
 
 ##################################################################
 # system keycodes  
