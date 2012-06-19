@@ -20,9 +20,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "rigol_com.h"
-
 
 
 int main(int argc, char *argv[])
@@ -39,10 +37,9 @@ int main(int argc, char *argv[])
         }
 
 	printf("Opening port \n");
-	if(rigol.open_rigol(argv[1])<0)
+	if(rigol.open_rigol(argv[1])<0) //If the port opened correctly continue.
 		return -1;
-		printf("Port open \n\n");
-	//rigol.custom_command("",0);
+		printf("Port open \n\n");	
 
 	printf("Scope identification:\n%s\n",rigol.identify());
 	rigol.keylock_disable();
