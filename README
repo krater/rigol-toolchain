@@ -47,28 +47,30 @@ Supported Hardware
 Compile/Install
 ~~~~~~~~~~~~~~~
    
-    Before you can install the toolchain, you must install the following software packets
+    install git if needed:
 
-    - Build Essentials (make,...)
-    - GNU C++ Compiler
-    - Blackfin Cross Compiler Toolchain (bfin-uclinux-xxx)
-    - md5sum tool
-    
-    Also you need a firmware image (DS1000EUpdate.RGL) version 02.05.02.00 
-    with a md5sum of 9c28690d8d5a5690b7340fda943f5549.
+	sudo apt-get install git    
 
-    1)Install the toolchain
-      
-      First, like in the most packeckage do a 
-    
-      make
-    
-      then a
-    
-      sudo make install
+    To get the latest version of the toolchain, simply checkout the appropriate git repository with the line:
+
+	git clone git://github.com/krater/rigol-toolchain.git
+ 
+    Switch to the resulting directory:
+
+	cd rigol-toolchain
+
+    Execute the install script, this will install all required packages and install the tool chain on your system:
+
+	./install.sh
 
     
     2)Patching the firmware
+
+      You need a firmware image (DS1000EUpdate.RGL) version 02.05.02.00 
+      with a md5sum of 9c28690d8d5a5690b7340fda943f5549.
+
+      The md5sum of the firmware can be verified with the command:
+	md5sum -b DS1000EUpdate.RGL
 
       Copy your firmware image to examples/rwpatch/DS1000EUpdate.RGL,
       switch to this directory and do a
