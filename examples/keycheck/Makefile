@@ -1,4 +1,4 @@
-TTY=/dev/ttyS0
+TTY=/dev/ttyUSB0
 
 ASMSRCS = keycheck.asm
 
@@ -14,16 +14,18 @@ LD = bfin-uclinux-ld
 	$(AS) $(ASMFLAGS) -o $@ $<
 
 default: all
-all:	clean hello
+all:	clean keyckeck
 
-hello:	$(OBJS)
+keyckeck:	$(OBJS)
 	$(LD) -o dummy $(OBJS)
 
-upload: hello
-	rglupload $(TTY) dummy 0xef000 0x300
+upload: keyckeck
+	sudo rglupload $(TTY) dummy 0xEF000 0x300
 
 start:
-	rglexecute $(TTY) 0x0EF000
+	sudo rglexecute $(TTY) 0x0EF000
+
+run: clean keyckeck upload start
 
 clean:
 	rm -f *.o dummy  

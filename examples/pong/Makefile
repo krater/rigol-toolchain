@@ -1,4 +1,4 @@
-TTY=/dev/ttyS0
+TTY=/dev/ttyUSB0
 
 ASMSRCS = pong.asm
 
@@ -20,10 +20,12 @@ pong:	$(OBJS)
 	$(LD) -o dummy $(OBJS)
 
 upload:	pong
-	rglupload $(TTY) dummy 0xef000 0x600
+	sudo rglupload $(TTY) dummy 0x0EF000 0x600
 
 start:	
-	rglexecute $(TTY) 0x0EF000
+	sudo rglexecute $(TTY) 0x0EF000
+
+run: clean pong upload start
 
 clean:
-	rm -f *.o dummy  
+	rm -f *.o dummy
