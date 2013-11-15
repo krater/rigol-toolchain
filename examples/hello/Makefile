@@ -1,4 +1,4 @@
-TTY=/dev/ttyS0
+TTY=/dev/ttyUSB0
 
 ASMSRCS = hello.asm
 
@@ -20,10 +20,12 @@ hello:	$(OBJS)
 	$(LD) -o dummy $(OBJS)
 
 upload: hello
-	rglupload $(TTY) hello.o 0xef000 0x300
+	sudo rglupload $(TTY) hello.o 0x0EF000 0x300
 
 start:
-	rglexecute $(TTY) 0x0EF000
+	sudo rglexecute $(TTY) 0x0EF000
+
+run: clean hello upload start
 
 clean:
 	rm -f *.o dummy  
